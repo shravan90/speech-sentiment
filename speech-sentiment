@@ -1,0 +1,53 @@
+# Say anything you type, and write anything you say.
+# Stops when you say "turn off" or type "turn off".
+
+import speech
+import sys
+import time
+from textblob import TextBlob
+
+def callback(phrase, listener):
+    print ": %s" % phrase
+    if phrase == "turn off":
+        speech.say("Goodbye.")
+        listener.stoplistening()
+        sys.exit()
+def classify():
+    v = sentence.sentiment.polarity
+    if -1<v<0:
+        print "Sentiment : Negative"
+    if 0<v<=0.3:
+        print "Sentiment : Negative"
+    if v==0:
+        print "Sentiment : Neutral"
+    if 0.3<v<1:
+        print "Sentiment : Positive"
+        
+def islistening(self):
+        """True if this Listener is listening for speech."""
+        return self in Listener._all
+
+print "Anything you type, speech will say back."
+print "Anything you say, speech will print out."
+print "Say or type 'turn off' to quit."
+print
+
+listener = speech.listenforanything(callback)
+
+while listener.islistening():
+    text = speech.input('>')
+    print text
+    time.sleep(3)
+    blob = TextBlob(text)
+    time.sleep(6)
+    sys.stdout.flush()
+    for sentence in blob.sentences:
+       print(sentence.sentiment.polarity)
+    v=sentence.sentiment.polarity
+    classify()
+    time.sleep(5)
+    listener.stoplistening()
+
+    
+    
+    
